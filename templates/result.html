@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block title %} {{title}} {{ super() }} {% endblock
+%} {% block section %}
+<h1 class="text-center">{{title}}</h1>
+<div class="container">
+  <div class="p-2 justify-content-center">
+    <canvas id="line-chart"></canvas>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  new Chart(document.getElementById("line-chart"), {
+      type: 'line',
+      data: {
+        labels: {{timestamps | tojson}},
+        datasets: [{
+            data: {{results | tojson}},
+            label: "Pomiar",
+            borderColor: "#3e95cd",
+            fill: false,
+          }
+        ]
+      },
+      showTooltips: true,
+      options: {
+        spanGaps: true,
+      }
+      });
+</script>
+{{ super() }} {% endblock%}
