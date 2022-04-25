@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 import requests
-from datetime import date, datetime
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -18,7 +18,7 @@ def temp(name):
     r = requests.get(url)
     payloads = r.json()
 
-    # print single field values
+    # parse json data to get the values
     title = payloads['channel'][f'field{name}']
     for i in range(len(payloads['feeds'])):
         mesure = payloads['feeds'][i][f'field{name}']
