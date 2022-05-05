@@ -7,7 +7,13 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    results = []
+    for i in range(1, 9):
+        url = f'https://api.thingspeak.com/channels/202842/fields/{i}/last.json'
+        r = requests.get(url)
+        payloads = r.json()
+        results.append(payloads[f'field{i}'])
+    return render_template("index.html", first=results[0], second=results[1], third=results[2], fourth=results[3], fifth=results[4], sixth=results[5], seventh=results[6], eighth=results[7])
 
 
 @app.route('/<name>')
